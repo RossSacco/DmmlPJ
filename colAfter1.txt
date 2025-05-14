@@ -1,0 +1,131 @@
+['_STATE', -> cat. nom.
+ 'GENHLTH', -> cat. ord. da 1 (excellent) a 5 (poor)
+ 'PHYSHLTH', -> numerica
+ 'MENTHLTH', -> numerica
+ 'HLTHPLN1', -> binaria (1 = yes, 2 = No)
+ 'PERSDOC2', -> da capire (1 = yes only one, 2 = more than one, 3 = no)
+ 'MEDCOST', -> binaria (1 = yes, 2 = No)
+ 'CHECKUP1', -> cat. ord. da 1 (excellent) a 8 (poor) (5 6 e 7 mancano)
+ 'BPHIGH4', -> da capire (1 = yes, 2 = only during pregnancy, 3 = no, 4 = borderline)
+ 'BLOODCHO', -> binaria (1 = yes, 2 = No)
+ 'CHOLCHK', -> cat. ord. da 1 (excellent) a 4 (poor)
+ 'TOLDHI2',  -> binaria (1 = yes, 2 = No)
+ 'CVDINFR4',  -> binaria (1 = yes, 2 = No)
+ 'CVDCRHD4',  -> binaria (1 = yes, 2 = No)
+ 'CVDSTRK3',  -> binaria (1 = yes, 2 = No)
+ 'ASTHMA3',  -> binaria (1 = yes, 2 = No)
+ 'CHCSCNCR', -> binaria (1 = yes, 2 = No)
+ 'CHCOCNCR', -> binaria (1 = yes, 2 = No)
+ 'CHCCOPD1', -> binaria (1 = yes, 2 = No)
+ 'HAVARTH3', -> binaria (1 = yes, 2 = No)
+ 'ADDEPEV2', -> binaria (1 = yes, 2 = No)
+ 'CHCKIDNY', -> binaria (1 = yes, 2 = No) 
+ 'DIABETE3', -> var target già trattata
+ 'SEX', -> cat. nom.
+ 'MARITAL', -> cat. nom.
+ 'EDUCA', -> cat. ord da 1 (poor) to 6 (excellent)
+ 'VETERAN3', -> binaria (1 = yes, 2 = No) 
+ 'EMPLOY1', -> cat. nom.
+ 'CHILDREN', -> numerica
+ 'INCOME2', -> cat. nom da 1 (poor) a 8 (excellent)
+ 'INTERNET', -> binaria (1 = yes, 2 = No) 
+ 'WEIGHT2', -> numerica
+ 'HEIGHT3', -> numerica
+ 'QLACTLM2', -> binaria (1 = yes, 2 = No) 
+ 'USEEQUIP', -> binaria (1 = yes, 2 = No) 
+ 'BLIND', -> binaria (1 = yes, 2 = No)  
+ 'DECIDE', -> binaria (1 = yes, 2 = No) 
+ 'DIFFWALK', -> binaria (1 = yes, 2 = No) 
+ 'DIFFDRES', -> binaria (1 = yes, 2 = No) 
+ 'DIFFALON', -> binaria (1 = yes, 2 = No) 
+ 'SMOKE100', -> binaria (1 = yes, 2 = No) 
+ 'USENOW3', -> cat. ord da 1 (every day) to 3 (not at all)
+ 'ALCDAY5', -> da toccare a mano
+ 'FRUITJU1',-> da toccare a mano
+ 'FRUIT1', -> da toccare a mano 
+ 'FVBEANS', -> da toccare a mano 
+ 'FVGREEN', -> da toccare a mano 
+ 'FVORANG', -> da toccare a mano 
+ 'VEGETAB1', -> da toccare a mano 
+ 'EXERANY2', -> binaria (1 = yes, 2 = No) 
+ 'STRENGTH', -> da toccare a mano 
+ 'SEATBELT', -> cat. ord da 1 (always) a 5 (never)
+ 'FLUSHOT6', -> binaria (1 = yes, 2 = No) 
+ 'PNEUVAC3', -> binaria (1 = yes, 2 = No)
+ 'HIVTST6', -> binaria (1 = yes, 2 = No)
+ '_CHISPNC', -> binaria (1 = yes, 2 = No) 
+ '_RFHLTH',
+ '_HCVU651',
+ '_RFHYPE5',
+ '_CHOLCHK',
+ '_RFCHOL',
+ '_MICHD',
+ '_LTASTH1',
+ '_CASTHM1',
+ '_ASTHMS1',
+ '_DRDXAR1',
+ '_PRACE1',
+ '_MRACE1',
+ '_HISPANC',
+ '_RACE',  -> cat nom. 
+ '_RACEG21',
+ '_RACEGR3', 
+ '_RACE_G1',
+ '_AGEG5YR',
+ '_AGE65YR',
+ '_AGE80', 
+ '_AGE_G', -> cat. ordinale da 1 (age 18 to 24) a 6 (age 65 or older)
+ 'HTIN4',
+ 'HTM4',
+ 'WTKG3',
+ '_BMI5', -> numerico, calcolato a partire da peso e altezza
+ '_BMI5CAT', -> cat. ord da 1 (underweight) a 4 (obese)
+ '_RFBMI5',
+ '_CHLDCNT',
+ '_EDUCAG',
+ '_INCOMG',
+ '_SMOKER3', -> cat ord da 1 (fuma) a 4 (mai fumato)
+ '_RFSMOK3',
+ 'DRNKANY5',
+ 'DROCDY3_',
+ '_RFBING5',
+ '_DRNKWEK',
+ '_RFDRHV5',
+ 'FTJUDA1_',
+ 'FRUTDA1_',
+ 'BEANDAY_',
+ 'GRENDAY_',
+ 'ORNGDAY_',
+ 'VEGEDA1_',
+ '_MISFRTN',
+ '_MISVEGN',
+ '_FRTRESP',
+ '_VEGRESP',
+ '_FRUTSUM',
+ '_VEGESUM',
+ '_FRTLT1',
+ '_VEGLT1',
+ '_FRT16',
+ '_VEG23',
+ '_FRUITEX',
+ '_VEGETEX',
+ '_TOTINDA',
+ 'MAXVO2_',
+ 'FC60_',
+ 'STRFREQ_',
+ 'PAMISS1_',
+ '_PACAT1', -> cat ord da 1 (highly active) a 4 (inactive)
+ '_PAINDX1',
+ '_PA150R2',
+ '_PA300R2',
+ '_PA30021',
+ '_PASTRNG',
+ '_PAREC1',
+ '_PASTAE1',
+ '_LMTACT1',
+ '_LMTWRK1',
+ '_LMTSCL1',
+ '_RFSEAT2',
+ '_RFSEAT3',
+ '_AIDTST3',
+ 'NUMADULT_2']
