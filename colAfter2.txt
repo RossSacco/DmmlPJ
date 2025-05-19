@@ -3,10 +3,10 @@
  'PHYSHLTH', -> numerica
  'MENTHLTH', -> numerica
  'HLTHPLN1', -> binaria (1 = yes, 2 = No)
- 'PERSDOC2', -> da capire (1 = yes only one, 2 = more than one, 3 = no)
+ 'PERSDOC2', -> da capire (1 = yes only one, 2 = more than one, 3 = no) -> ok, è diventata binaria
  'MEDCOST', -> binaria (1 = yes, 2 = No)
  'CHECKUP1', -> cat. ord. da 1 (excellent) a 8 (poor) (5 6 e 7 mancano)
- 'BPHIGH4', -> da capire (1 = yes, 2 = only during pregnancy, 3 = no, 4 = borderline)
+ 'BPHIGH4', -> da capire (1 = yes, 2 = only during pregnancy, 3 = no, 4 = borderline) -> ok, è diventata binaria
  'BLOODCHO', -> binaria (1 = yes, 2 = No)
  'CHOLCHK', -> cat. ord. da 1 (excellent) a 4 (poor)
  'TOLDHI2',  -> binaria (1 = yes, 2 = No)
@@ -21,13 +21,12 @@
  'ADDEPEV2', -> binaria (1 = yes, 2 = No)
  'CHCKIDNY', -> binaria (1 = yes, 2 = No) 
  'DIABETE3', -> var target già trattata
- 'SEX', -> cat. nom.
  'MARITAL', -> cat. nom.
  'EDUCA', -> cat. ord da 1 (poor) to 6 (excellent)
  'VETERAN3', -> binaria (1 = yes, 2 = No) 
  'EMPLOY1', -> cat. nom.
  'CHILDREN', -> numerica
- 'INCOME2', -> cat. nom da 1 (poor) a 8 (excellent)
+ 'INCOME2', -> cat. ord da 1 (poor) a 8 (excellent)
  'INTERNET', -> binaria (1 = yes, 2 = No) 
  'WEIGHT2', -> numerica
  'HEIGHT3', -> numerica
@@ -39,25 +38,21 @@
  'DIFFDRES', -> binaria (1 = yes, 2 = No) 
  'DIFFALON', -> binaria (1 = yes, 2 = No) 
  'SMOKE100', -> binaria (1 = yes, 2 = No) 
- 'USENOW3', -> cat. ord da 1 (every day) to 3 (not at all)
- 'ALCDAY5', -> da toccare a mano
- 'FRUITJU1',-> da toccare a mano
- 'FRUIT1', -> da toccare a mano 
- 'FVBEANS', -> da toccare a mano 
- 'FVGREEN', -> da toccare a mano 
- 'FVORANG', -> da toccare a mano 
- 'VEGETAB1', -> da toccare a mano 
+ 'ALCDAY5', -> da toccare a mano -> ok -> numerica
+ 'FRUITJU1',-> da toccare a mano -> ok
+ 'FRUIT1', -> da toccare a mano -> ok
+ 'FVBEANS', -> da toccare a mano -> ok
+ 'FVGREEN', -> da toccare a mano -> ok
+ 'FVORANG', -> da toccare a mano -> ok
+ 'VEGETAB1', -> da toccare a mano -> ok
  'EXERANY2', -> binaria (1 = yes, 2 = No) 
- 'STRENGTH', -> da toccare a mano 
- 'SEATBELT', -> cat. ord da 1 (always) a 5 (never)
+ 'STRENGTH', -> da toccare a mano -> ok -> numerica
  'FLUSHOT6', -> binaria (1 = yes, 2 = No) 
  'PNEUVAC3', -> binaria (1 = yes, 2 = No)
  'HIVTST6', -> binaria (1 = yes, 2 = No)
- '_CHISPNC', -> binaria (1 = yes, 2 = No) 
  '_RACE',  -> cat nom. 
  '_AGE_G', -> cat. ordinale da 1 (age 18 to 24) a 6 (age 65 or older)
- '_BMI5', -> numerico, calcolato a partire da peso e altezza
- '_BMI5CAT', -> cat. ord da 1 (underweight) a 4 (obese)
+ '_BMI5CAT', -> cat nom
  '_SMOKER3', -> cat ord da 1 (fuma) a 4 (mai fumato)
  '_PACAT1', -> cat ord da 1 (highly active) a 4 (inactive)
- 'NUMADULT_2']
+ 'NUMADULT_2'-> numerica]
