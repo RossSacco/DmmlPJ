@@ -127,48 +127,78 @@ def predict():
 root = tk.Tk()
 style = Style(theme='darkly')
 root.title("🩺 Classificatore Rischio Diabete")
-root.geometry("1200x700")
+root.geometry("1000x800")
+root.resizable(True, True)
 
-# Frame con scrollbar
+# Frame con titolo e descrizione
+title_frame = ttk.Frame(root, padding=20)
+title_frame.pack(fill=tk.X)
+ttk.Label(title_frame, text="🩺 Classificatore del Rischio Diabete", font=("Helvetica", 18, "bold")).pack()
+ttk.Label(title_frame, text="Complete the questionnaire to estimate your probability of diabetes\n based on lifestyle factors, medical indicators, and demographic data.",font=("Helvetica", 11), wraplength=800, justify='center').pack(pady=(5, 10))
+
+# Frame principale con scroll
 main_frame = ttk.Frame(root)
 main_frame.pack(fill=tk.BOTH, expand=1)
 
-canvas = tk.Canvas(main_frame)
-canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-
-scrollbar = ttk.Scrollbar(main_frame, orient=tk.VERTICAL, command=canvas.yview)
-scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-canvas.configure(yscrollcommand=scrollbar.set)
-canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-
+canvas = tk.Canvas(main_frame, borderwidth=0, background="#1e1e1e")
+scrollbar = ttk.Scrollbar(main_frame, orient="vertical", command=canvas.yview)
 scrollable_frame = ttk.Frame(canvas)
-canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
 
+scrollable_frame.bind(
+    "<Configure>",
+    lambda e: canvas.configure(
+        scrollregion=canvas.bbox("all")
+    )
+)
+
+window_id = canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+
+# aggiorna scrollregion
+scrollable_frame.bind(
+    "<Configure>",
+    lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+)
+
+# mantieni la stessa larghezza del canvas
+canvas.bind(
+    "<Configure>",
+    lambda e: canvas.itemconfig(window_id, width=e.width)
+)
+canvas.configure(yscrollcommand=scrollbar.set)
+
+canvas.pack(side="left", fill="both", expand=True)
+scrollbar.pack(side="right", fill="y")
+
+# Consenti scroll con mousewheel
+def _on_mousewheel(event):
+    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+canvas.bind_all("<MouseWheel>", _on_mousewheel)
+
+# Usa scrollable_frame per costruire il form
 frame = scrollable_frame
-
 def add_input_field(parent, label, default=""):
     row = ttk.Frame(parent)
-    row.pack(fill=tk.X, pady=5)
-    ttk.Label(row, text=label, anchor='w', wraplength=690, justify='center').pack(fill=tk.X)
+    row.pack(fill=tk.X, pady=5, padx=20)
+    ttk.Label(row, text=label, anchor='w', wraplength=690, justify='left').pack(fill=tk.X, padx=20, pady=5)
     entry = ttk.Entry(row)
-    entry.pack(fill=tk.X)
+    entry.pack(fill=tk.X, padx=20, pady=5)
     entry.insert(0, default)
     return entry
 
 def add_dropdown(parent, label, var, options):
     row = ttk.Frame(parent)
-    row.pack(fill=tk.X, pady=5)
-    ttk.Label(row, text=label, anchor='w', wraplength=690, justify='center').pack(fill=tk.X)
+    row.pack(fill=tk.X, pady=5, padx = 20)
+    ttk.Label(row, text=label, anchor='w', wraplength=690, justify='left').pack(fill=tk.X, padx=20, pady=5)
     menu = ttk.Combobox(row, textvariable=var, values=options, state='readonly')
-    menu.pack(fill=tk.X)
+    menu.pack(fill=tk.X, padx=20, pady=5)
     menu.configure(font=("Helvetica", 10))
     return menu
 
 
 # Campi di input
 
-entry_phys_hlth = add_input_field(frame, "- Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good?", "5")
+entry_phys_hlth = add_input_field(frame, "- Now thinking about your physical health, for how many days during the past 30 days was your physical health not good?", "5")
 entry_children = add_input_field(frame, "- How many children less than 18 years of age live in your household?", "0")
 entry_alcday_week = add_input_field(frame, "- On how many days in a week did you have at least one drink of any alcoholic beverage?", "0")
 entry_fruitju1 = add_input_field(frame, "- How many times per month do you drink fruit juice?", "0")
@@ -308,153 +338,95 @@ pacat_var.set("Highly active")  # valore predefinito visibile
 # Campi binari
 
 var_hlthpln1 = tk.IntVar()
-row_hlthpln1 = ttk.Frame(frame)
-row_hlthpln1.pack(fill=tk.X, pady=5)
-ttk.Checkbutton(frame, text="Do you have any kind of health care coverage, including health insurance, prepaid plans such as Health Maintenance Organizations (HMOs), or government plans such as Medicare?", variable=var_hlthpln1).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you have any kind of health care coverage, or government plans such as Medicare?", variable=var_hlthpln1).pack(anchor='w', padx=20, pady=5)
 
 var_perdoc = tk.IntVar()
-row_perdoc = ttk.Frame(frame)
-row_perdoc.pack(fill=tk.X, pady=5)
-ttk.Checkbutton(frame, text="Do you have a personal doctor?", variable=var_perdoc).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you have a personal doctor?", variable=var_perdoc).pack(anchor='w', padx=20, pady=5)
 
 var_medcost = tk.IntVar()
-row_medcost = ttk.Frame(frame)
-row_medcost.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?", variable=var_medcost).pack(pady=5)
+ttk.Checkbutton(frame, text="Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?", variable=var_medcost).pack(anchor='w',padx=20,pady=5)
 
 var_bphigh = tk.IntVar()
-row_bphigh = ttk.Frame(frame)
-row_bphigh.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have high blood pressure?", variable=var_bphigh).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have high blood pressure?", variable=var_bphigh).pack(anchor='w', padx=20, pady=5)
 
 var_toldhi = tk.IntVar()
-row_toldhi = ttk.Frame(frame)
-row_toldhi.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have high cholesterol?", variable=var_toldhi).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have high cholesterol?", variable=var_toldhi).pack(anchor='w', padx=20, pady=5)
 
 var_cvdinfr4 = tk.IntVar()
-row_cvdinfr4 = ttk.Frame(frame)
-row_cvdinfr4.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you had a heart attack?", variable=var_cvdinfr4).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you had a heart attack?", variable=var_cvdinfr4).pack(anchor='w', padx=20, pady=5)
 
 var_cvdcrhda4 = tk.IntVar()
-row_cvdcrhda4 = ttk.Frame(frame)
-row_cvdcrhda4.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you had coronary heart disease?", variable=var_cvdcrhda4).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you had coronary heart disease?", variable=var_cvdcrhda4).pack(anchor='w', padx=20, pady=5)
 
 var_cvdstrk3 = tk.IntVar()
-row_cvdstrk3 = ttk.Frame(frame)
-row_cvdstrk3.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you had a stroke?", variable=var_cvdstrk3).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you had a stroke?", variable=var_cvdstrk3).pack(anchor='w', padx=20, pady=5)
 
 var_asthma = tk.IntVar()
-row_asthma = ttk.Frame(frame)
-row_asthma.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have asthma?", variable=var_asthma).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have asthma?", variable=var_asthma).pack(anchor='w', padx=20, pady=5)
 
 var_skincancer = tk.IntVar()
-row_skincancer = ttk.Frame(frame)
-row_skincancer.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have skin cancer?", variable=var_skincancer).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have skin cancer?", variable=var_skincancer).pack(anchor='w', padx=20, pady=5)
 
 var_cancer = tk.IntVar()
-row_cancer = ttk.Frame(frame)
-row_cancer.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have any type of cancer?", variable=var_cancer).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have any type of cancer?", variable=var_cancer).pack(anchor='w', padx=20, pady=5)
 
 var_chcc = tk.IntVar()
-row_chcc = ttk.Frame(frame)
-row_chcc.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have chronic obstructive pulmonary disease (COPD)?", variable=var_chcc).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have chronic obstructive pulmonary disease (COPD)?", variable=var_chcc).pack(anchor='w', padx=20, pady=5)
 
 var_havart3 = tk.IntVar()
-row_havart3 = ttk.Frame(frame)
-row_havart3.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have arthritis?", variable=var_havart3).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have arthritis?", variable=var_havart3).pack(anchor='w', padx=20, pady=5)
 
 var_addepev2 = tk.IntVar()
-row_addepev2 = ttk.Frame(frame)
-row_addepev2.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have depression?", variable=var_addepev2).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have depression?", variable=var_addepev2).pack(anchor='w', padx=20, pady=5)
 
 var_chckidny = tk.IntVar()
-row_chckidny = ttk.Frame(frame)
-row_chckidny.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have kidney disease?", variable=var_chckidny).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been told by a doctor that you have kidney disease?", variable=var_chckidny).pack(anchor='w', padx=20, pady=5)
 
 var_veteran = tk.IntVar()
-row_veteran = ttk.Frame(frame)
-row_veteran.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Are you a veteran?", variable=var_veteran).pack(pady=5)
+ttk.Checkbutton(frame, text="Are you a veteran?", variable=var_veteran).pack(anchor='w', padx=20, pady=5)
 
 var_internet = tk.IntVar()
-row_internet = ttk.Frame(frame)
-row_internet.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Do you have access to the internet?", variable=var_internet).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you have access to the internet?", variable=var_internet).pack(anchor='w', padx=20, pady=5)
 
 var_qlactlm2 = tk.IntVar()
-row_qlactlm2 = ttk.Frame(frame)
-row_qlactlm2.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Are you limited in any way in any activities because of physical, mental, or emotional problems?", variable=var_qlactlm2).pack(pady=5)
+ttk.Checkbutton(frame, text="Are you limited in any way in any activities because of physical, mental, or emotional problems?", variable=var_qlactlm2).pack(anchor='w', padx=20, pady=5)
 
 var_useequip = tk.IntVar()
-row_useequip = ttk.Frame(frame)
-row_useequip.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Do you use any special equipment to help you with daily activities?", variable=var_useequip).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you use any special equipment to help you with daily activities?", variable=var_useequip).pack(anchor='w', padx=20, pady=5)
 
 var_blind = tk.IntVar()
-row_blind = ttk.Frame(frame)
-row_blind.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Are you blind or do you have serious difficulty seeing, even when wearing glasses?", variable=var_blind).pack(pady=5)
+ttk.Checkbutton(frame, text="Are you blind or do you have serious difficulty seeing, even when wearing glasses?", variable=var_blind).pack(anchor='w', padx=20, pady=5)
 
 var_decide = tk.IntVar()
-row_decide = ttk.Frame(frame)
-row_decide.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Because of a physical, mental, or emotional condition, do you have serious difficulty concentrating, remembering, or making decisions?", variable=var_decide).pack(pady=5)
+ttk.Checkbutton(frame, text="Because of a physical, mental, or emotional condition, do you have serious difficulty concentrating, remembering, or making decisions?", variable=var_decide).pack(anchor='w', padx=20, pady=5)
 
 var_diffwalk = tk.IntVar()
-row_diffwalk = ttk.Frame(frame)
-row_diffwalk.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Do you have serious difficulty walking or climbing stairs?", variable=var_diffwalk).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you have serious difficulty walking or climbing stairs?", variable=var_diffwalk).pack(anchor='w', padx=20, pady=5)
 
 var_diffdress = tk.IntVar()
-row_diffdress = ttk.Frame(frame)
-row_diffdress.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Do you have difficulty dressing or bathing?", variable=var_diffdress).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you have difficulty dressing or bathing?", variable=var_diffdress).pack(anchor='w', padx=20, pady=5)
 
 var_diffalon = tk.IntVar()
-row_diffalon = ttk.Frame(frame)
-row_diffalon.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Do you have difficulty doing errands alone such as visiting a doctor's office or shopping?", variable=var_diffalon).pack(pady=5)
+ttk.Checkbutton(frame, text="Do you have difficulty doing errands alone such as visiting a doctor's office or shopping?", variable=var_diffalon).pack(anchor='w', padx=20, pady=5)
 
 var_smoke100 = tk.IntVar()
-row_smoke100 = ttk.Frame(frame)
-row_smoke100.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you smoked at least 100 cigarettes in your entire life?", variable=var_smoke100).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you smoked at least 100 cigarettes in your entire life?", variable=var_smoke100).pack(anchor='w', padx=20, pady=5)
 
 var_exerany2 = tk.IntVar()
-row_exerany2 = ttk.Frame(frame)
-row_exerany2.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="During the past month, other than your regular job, did you participate in any physical activities or exercises ", variable=var_exerany2).pack(pady=5)
+ttk.Checkbutton(frame, text="During the past month, other than your regular job, did you participate in any physical activities or exercises ", variable=var_exerany2).pack(anchor='w', padx=20, pady=5)
 
 var_flushot6 = tk.IntVar()
-row_flushot6 = ttk.Frame(frame)
-row_flushot6.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you had a flu shot or a flu vaccine in the past 12 months?", variable=var_flushot6).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you had a flu shot or a flu vaccine in the past 12 months?", variable=var_flushot6).pack(anchor='w', padx=20, pady=5)
 
 var_pneuvac3 = tk.IntVar()
-row_pneuvac3 = ttk.Frame(frame)
-row_pneuvac3.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever had a pneumonia vaccine?", variable=var_pneuvac3).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever had a pneumonia vaccine?", variable=var_pneuvac3).pack(anchor='w', padx=20, pady=5)
 
 var_hivtst6 = tk.IntVar()
-row_hivtst6 = ttk.Frame(frame)
-row_hivtst6.pack(fill=tk.X, pady=5, padx = 20)
-ttk.Checkbutton(frame, text="Have you ever been tested for HIV?", variable=var_hivtst6).pack(pady=5)
+ttk.Checkbutton(frame, text="Have you ever been tested for HIV?", variable=var_hivtst6).pack(anchor='w', padx=20, pady=5)
 
 # Bottone di predizione
 btn = ttk.Button(frame, text="Classifica", command=predict, style="success.Outline.TButton")
-btn.pack(pady=20)
+btn.pack(anchor='center', pady=20, padx=20)
 
 # Avvia l'app
 root.mainloop()
