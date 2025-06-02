@@ -1,56 +1,17 @@
- Split valido trovato al tentativo 1
-📂 CV Random Forest: 100%|██████████| 5/5 [00:20<00:00,  4.10s/it]
-🔍 Valutazione modelli:  14%|█▍        | 1/7 [00:20<02:03, 20.65s/it]
-Classe 0 ➤ Precision: 0.928, Recall: 0.636, F1: 0.755
-Classe 1 ➤ Precision: 0.049, Recall: 0.374, F1: 0.087
-Classe 2 ➤ Precision: 0.477, Recall: 0.569, F1: 0.519
-
-📂 CV Logistic Regression: 100%|██████████| 5/5 [00:09<00:00,  1.87s/it]
-🔍 Valutazione modelli:  29%|██▊       | 2/7 [00:30<01:10, 14.11s/it]
-Classe 0 ➤ Precision: 0.924, Recall: 0.668, F1: 0.776
-Classe 1 ➤ Precision: 0.054, Recall: 0.379, F1: 0.095
-Classe 2 ➤ Precision: 0.503, Recall: 0.576, F1: 0.537
-📂 CV AdaBoost: 100%|██████████| 5/5 [00:11<00:00,  2.40s/it]
-🔍 Valutazione modelli:  43%|████▎     | 3/7 [00:42<00:52, 13.23s/it]
-Classe 0 ➤ Precision: 0.924, Recall: 0.680, F1: 0.783
-Classe 1 ➤ Precision: 0.050, Recall: 0.311, F1: 0.086
-Classe 2 ➤ Precision: 0.491, Recall: 0.590, F1: 0.536
-📂 CV Decision Tree: 100%|██████████| 5/5 [00:08<00:00,  1.60s/it]
-🔍 Valutazione modelli:  57%|█████▋    | 4/7 [00:50<00:33, 11.25s/it]
-Classe 0 ➤ Precision: 0.872, Recall: 0.511, F1: 0.645
-Classe 1 ➤ Precision: 0.038, Recall: 0.390, F1: 0.070
-Classe 2 ➤ Precision: 0.356, Recall: 0.421, F1: 0.386
-📂 CV KNN: 100%|██████████| 5/5 [00:18<00:00,  3.66s/it]
-🔍 Valutazione modelli:  71%|███████▏  | 5/7 [01:09<00:27, 13.87s/it]
-Classe 0 ➤ Precision: 0.893, Recall: 0.570, F1: 0.696
-Classe 1 ➤ Precision: 0.040, Recall: 0.346, F1: 0.071
-Classe 2 ➤ Precision: 0.387, Recall: 0.467, F1: 0.423
-📂 CV Bayesian: 100%|██████████| 5/5 [00:07<00:00,  1.55s/it]
-🔍 Valutazione modelli:  86%|████████▌ | 6/7 [01:17<00:11, 11.86s/it]
-Classe 0 ➤ Precision: 0.874, Recall: 0.741, F1: 0.802
-Classe 1 ➤ Precision: 0.051, Recall: 0.183, F1: 0.080
-Classe 2 ➤ Precision: 0.470, Recall: 0.551, F1: 0.507
-
-bst.update(dtrain, iteration=i, fobj=obj)
-📂 CV XGBoost: 100%|██████████| 5/5 [00:11<00:00,  2.32s/it]
-🔍 Valutazione modelli: 100%|██████████| 7/7 [01:28<00:00, 12.70s/it]
-Classe 0 ➤ Precision: 0.926, Recall: 0.633, F1: 0.752
-Classe 1 ➤ Precision: 0.051, Recall: 0.406, F1: 0.091
-Classe 2 ➤ Precision: 0.469, Recall: 0.541, F1: 0.502
-                 Model  Balanced Accuracy  Accuracy  Precision    Recall  \
-0        Random Forest           0.526242  0.613732   0.484750  0.526242   
-1  Logistic Regression           0.541255  0.639626   0.493846  0.541255   
-2             AdaBoost           0.526938  0.649160   0.488296  0.526938   
-3        Decision Tree           0.440833  0.487866   0.422348  0.440833   
-4                  KNN           0.460915  0.540625   0.440046  0.460915   
-5             Bayesian           0.491948  0.683076   0.465162  0.491948   
-6              XGBoost           0.526573  0.605826   0.482039  0.526573   
+Model  Balanced Accuracy  Accuracy  Precision    Recall  \
+0        Random Forest           0.524612  0.609722   0.482524  0.524612   
+1  Logistic Regression           0.531466  0.639278   0.489360  0.531466   
+2             AdaBoost           0.530081  0.650395   0.485439  0.530081   
+3        Decision Tree           0.431573  0.484635   0.420414  0.431573   
+4                  KNN           0.466758  0.548068   0.443055  0.466758   
+5             Bayesian           0.492782  0.680851   0.460293  0.492782   
+6              XGBoost           0.519325  0.601888   0.479743  0.519325   
 
    F1 Score  
-0  0.453657  
-1  0.469375  
-2  0.468479  
-3  0.366851  
-4  0.396855  
-5  0.463255  
-6  0.448367  
+0  0.451742  
+1  0.466248  
+2  0.468407  
+3  0.364022  
+4  0.402324  
+5  0.461692  
+6  0.444993
