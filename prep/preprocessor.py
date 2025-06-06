@@ -9,27 +9,29 @@ binary_cols = ['HLTHPLN1','MEDCOST','TOLDHI2','CVDINFR4',
             'CVDCRHD4','CVDSTRK3','ASTHMA3','CHCSCNCR','CHCOCNCR',
             'CHCCOPD1','HAVARTH3','ADDEPEV2','CHCKIDNY','VETERAN3',
             'INTERNET','QLACTLM2','USEEQUIP','BLIND','DECIDE',
-            'DIFFWALK','DIFFDRES','DIFFALON','FLUSHOT6',
+            'DIFFWALK','DIFFDRES','DIFFALON','SMOKE100','EXERANY2','FLUSHOT6',
             'PNEUVAC3', 'HIVTST6', 'PERSDOC2', 'BPHIGH4'] 
 
 nominal_cols = [
-    'MARITAL','EMPLOY1','_RACE', '_BMI5CAT', 'AGE_GROUP'
+    'MARITAL','EMPLOY1','_RACE', '_BMI5CAT'
 ]
 
 numeric_cols = [
     'PHYSHLTH','CHILDREN',
-    'FRUITJU1','NutritionScore','STRENGTH'
+    'ALCDAY5', 'FRUITJU1',  'STRENGTH',
+    
 ]
 
 ordinal = {
-    'GENHLTH':       [1,2,3,4,5],       # 1=Excellent … 5=Poor
-    'CHECKUP1':      [1,2,3,4,5,6,7,8], # 
+    'GENHLTH':       [1,2,3,4,5],       
+    'CHECKUP1':      [1,2,3,4,5,6,7,8], 
     'CHOLCHK':       [1,2,3,4],         
-    'EDUCA':         [1,2,3,4,5,6],     # 1=Less than high school … 6=Post-grad
-    'INCOME2':       [1,2,3,4,5,6,7,8], # 1=Less than $10K … 8=$75K or more
-    'Sedentary':     [0,1,2],         # 0=Active … 2=Inactive
-    'RiskyBehavior': [0,1,2],         # 0=No … 2=Yes
-    'LowAccess':     [0,1,2],         # 0=No … 2=Yes
+    '_PACAT1':       [1,2,3,4],
+    'EDUCA':         [1,2,3,4,5,6],    
+    'INCOME2':       [1,2,3,4,5,6,7,8], 
+    'Sedentary':     [0,1,2],         
+    'RiskyBehavior': [0,1,2],         
+    'LowAccess':     [0,1,2],         
     
 }
 

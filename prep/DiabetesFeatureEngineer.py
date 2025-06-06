@@ -12,7 +12,7 @@ class DiabetesFeatureEngineer(BaseEstimator, TransformerMixin):
     def transform(self, X):
         X = X.copy()
 
-        # Sicurezza: gestisci ogni gruppo solo se tutte o parte delle colonne esistono
+        
 
         
         sedentary_cols = [col for col in ['EXERANY2', '_PACAT1'] if col in X.columns]
@@ -46,11 +46,7 @@ class DiabetesFeatureEngineer(BaseEstimator, TransformerMixin):
         if '_AGE_G' in X.columns:
             X['AGE_GROUP'] = pd.cut(X['_AGE_G'], bins=[0, 2, 4, 6], labels=['Young', 'Middle', 'Older'])
 
-        # Rimuove le colonne originali usate per costruire le nuove
-        drop_cols = list(set(
-            sedentary_cols + risky_cols + nutri_cols +
-            ['_AGE_G']
-        ))
-        X.drop(columns=drop_cols, inplace=True, errors='ignore')
+        
+        X.drop(columns=['_AGE_G', 'FRUIT1', 'FVBEANS', 'FVGREEN', 'FVORANG', 'VEGETAB1'], inplace=True, errors='ignore')
 
         return X
